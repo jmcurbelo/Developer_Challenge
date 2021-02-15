@@ -94,7 +94,7 @@ class process:
 
     def topPlayersOVA(self, data: DataFrame):
         """
-        This feature finds the top 10 players for each position based on the OVA indicator
+        This function finds the top 10 players for each position based on the OVA indicator
         :param data: A dataframe
         :return: A dataframe with the top 10 players for each position
         """
