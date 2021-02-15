@@ -1,4 +1,4 @@
-# Contains the output paths of project
+# Contains the paths of project
 
 input_path = './data/input/fifa21_male2.csv'
 output_path_nationality = './data/output/by_nationality'
