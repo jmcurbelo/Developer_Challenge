@@ -5,9 +5,6 @@ from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
 
-
-
-
 class process:
     '''
     This class contain all function to process the data
