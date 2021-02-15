@@ -21,36 +21,15 @@ class output:
         except Exception as ex:
             print(ex)
 
-    def writePlyByClubPos(self, data: DataFrame):
+    def writeDF(self, data: DataFrame, path: str):
         '''
-        This function write the data corresponding to how many players for each position have each Club
-        :param data: A dataframe
-        :return: A file in  ORC format on your local file system
-        '''
-        try:
-            data.coalesce(2).write.mode('overwrite').orc(output_path_ply_by_club_pos)
-        except Exception as ex:
-            print(ex)
-
-    def writeTopSprSpdAvg(self, data: DataFrame):
-        '''
-        This function write the data corresponding to the top 10 clubs for sprint speed average
-        :param data: A dataframe
-        :return: A file in  ORC format on your local file system
+        This function writes the data to the provided path.
+        :param data: The data to write.
+        :param path: The path where to write the data.
+        :return:
         '''
         try:
-            data.coalesce(2).write.mode('overwrite').orc(output_path_top_spr_spd_avg)
-        except Exception as ex:
-            print(ex)
-
-    def writePlyOverweight(self, data: DataFrame):
-        '''
-        This function write the data corresponding to the all players with overweight (IMC>25)
-        :param data: A dataframe
-        :return: A file in  ORC format on your local file system
-        '''
-        try:
-            data.coalesce(2).write.mode('overwrite').orc(output_path_ply_overweight)
+            data.coalesce(2).write.mode('overwrite').orc(path)
         except Exception as ex:
             print(ex)
 

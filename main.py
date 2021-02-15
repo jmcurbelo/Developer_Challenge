@@ -4,6 +4,11 @@ from pyspark.sql import DataFrame
 from Input import input
 from Process import process
 from Output import output
+from paths import *
+
+# Uncomment the next two lines to run outside of PyCharm
+# import findspark
+# findspark.init()
 
 
 class main:
@@ -17,7 +22,7 @@ class main:
             sc = SparkContext(master='local', appName='Developer_Challenge')
             spark = SQLContext(sc)
 
-            # class declaration
+            # Class Declaration
             read_data = input(spark)
             process_data = process(spark)
             write = output(spark)
@@ -39,15 +44,15 @@ class main:
 
             # How many players for each position have each Club
             ply_by_club_pos = process_data.countPlayerPosClub(data)
-            write.writePlyByClubPos(ply_by_club_pos)
+            write.writeDF(ply_by_club_pos, output_path_ply_by_club_pos)
 
             # top 10 clubs for sprint speed average
             top_spr_spd_avg = process_data.topSprintSpeedAverage(data)
-            write.writeTopSprSpdAvg(top_spr_spd_avg)
+            write.writeDF(top_spr_spd_avg, output_path_top_spr_spd_avg)
 
             # All players with overweight (IMC>25)
             ply_overweight = process_data.claculateIMC(data)
-            write.writePlyOverweight(ply_overweight)
+            write.writeDF(ply_overweight, output_path_ply_overweight)
 
         except Exception as ex:
             print(ex)
