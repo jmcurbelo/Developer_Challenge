@@ -24,10 +24,10 @@ The inputs for this project are the aforementioned data.
 ## Outputs
 The outputs of this project are 5 data frames. Each of these dataframes answers one of the challenge questions.
 * **by_nationality:** Save all players partitioned by nationality.
-* **ply_by_club_pos** Save how many players for each position each club has.
-* **ply_overweight** Save those players who are overweight (IMC> 25).
-* **top_spr_spd_avg** Save the top 10 clubs according to average sprint speed.
-* **top_ply_each_pos** Save the top 10 players by position according to the OVA index. The output is partitioned by position.
+* **ply_by_club_pos:** Save how many players for each position each club has.
+* **ply_overweight:** Save those players who are overweight (IMC> 25).
+* **top_spr_spd_avg:** Save the top 10 clubs according to average sprint speed.
+* **top_ply_each_pos:** Save the top 10 players by position according to the OVA index. The output is partitioned by position.
 
 ## Run the project
 * **In PyCharm:** Import the project and run the main class.
