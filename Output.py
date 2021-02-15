@@ -17,7 +17,18 @@ class output:
         :return: A file in  ORC format on your local file system partitioned by nationality
         '''
         try:
-            data.coalesce(2).write.partitionBy(Nationality).mode('overwrite').orc(output_path_nationality)
+            data.coalesce(2).write.partitionBy(Nationality).mode(overwrite).orc(output_path_nationality)
+        except Exception as ex:
+            print(ex)
+
+    def writeTopOVA(self, data: DataFrame):
+        '''
+        This function writes the dataframe partitioning by position
+        :param data: A dataframe
+        :return:
+        '''
+        try:
+            data.coalesce(2).write.partitionBy(Position).mode(overwrite).orc(output_path_top_player_each_pos)
         except Exception as ex:
             print(ex)
 
@@ -29,7 +40,7 @@ class output:
         :return:
         '''
         try:
-            data.coalesce(2).write.mode('overwrite').orc(path)
+            data.coalesce(2).write.mode(overwrite).orc(path)
         except Exception as ex:
             print(ex)
 

@@ -2,6 +2,10 @@ from Constants import *
 from pyspark.sql.functions import split, explode
 from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
+from pyspark.sql.window import Window
+
+
+
 
 
 class process:
@@ -87,9 +91,25 @@ class process:
                 .withColumn(weight_kg, F.col(weight_temp)*0.453592)\
                 .withColumn(IMC, F.col(weight_kg)/(pow(F.col(height_mtr), 2)))\
                 .select(F.col(Name), F.col(weight_kg), F.col(height_mtr), F.col(IMC))\
-                .filter(F.col(IMC) > 25).distinct()
+                .filter(F.col(IMC) > 25).distinct().orderBy(F.desc(IMC))
         except Exception as ex:
             print(ex)
+
+    def topPlayersOVA(self, data: DataFrame):
+        '''
+        This feature finds the top 10 players for each position based on the OVA indicator
+        :param data: A dataframe
+        :return: A dataframe with the top 10 players for each position
+        '''
+        try:
+            df = data.select(F.col(Name), F.col(OVA), F.col(Single_position).alias(Position),
+                             F.row_number().over(Window.partitionBy(Single_position)
+                                                 .orderBy(F.col(OVA).desc())).alias(row_number))\
+                .filter(F.col(row_number).isin(top10)).drop(row_number)
+            return df
+        except Exception as ex:
+            print(ex)
+
 
 
 

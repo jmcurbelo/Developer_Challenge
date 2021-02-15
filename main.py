@@ -39,8 +39,9 @@ class main:
             # Write by nationality
             write.writeByNationality(data)
 
-            # the 10 top players for each position
-            # Falta
+            # the 10 top players for each position (OVA)
+            top_ply_ova = process_data.topPlayersOVA(data)
+            write.writeTopOVA(top_ply_ova)
 
             # How many players for each position have each Club
             ply_by_club_pos = process_data.countPlayerPosClub(data)

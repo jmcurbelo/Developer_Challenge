@@ -27,7 +27,7 @@ The outputs of this project are 5 data frames. Each of these dataframes answers 
 * **ply_by_club_pos** Save how many players for each position each club has.
 * **ply_overweight** Save those players who are overweight (IMC> 25).
 * **top_spr_spd_avg** Save the top 10 clubs according to average sprint speed.
-* **Falta**
+* **top_ply_each_pos** Save the top 10 players by position according to the OVA index. The output is partitioned by position.
 
 ## Run the project
 * **In PyCharm:** Import the project and run the main class.
