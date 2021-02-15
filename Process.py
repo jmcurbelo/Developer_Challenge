@@ -6,18 +6,18 @@ from pyspark.sql.window import Window
 
 
 class process:
-    '''
+    """
     This class contain all function to process the data
-    '''
+    """
     def __init__(self, spark):
         self.spark = spark
 
     def renameColumns(self, data: DataFrame):
-        '''
+        """
         This function rename all column with incorrect format
         :param data: A dataframe
         :return: The same dataframe but with all names of column with correct format
-        '''
+        """
         try:
             old_names = data.schema.names
             new_names = [x.replace(' ', '_') for x in old_names]
@@ -30,22 +30,22 @@ class process:
             print(ex)
 
     def splitDataFrame(self, data: DataFrame):
-        '''
+        """
         This function separates the positions of the players leaving them in separate rows
         :param data: A dataframe
         :return: A dataframe with one player and only one position per row
-        '''
+        """
         try:
             return data.withColumn(Single_position, explode(split(Position, ' '))).drop(Position)
         except Exception as ex:
             print(ex)
 
     def countPlayerPosClub(self, data: DataFrame):
-        '''
+        """
         This function counts how many players per position each club has
         :param data: A dataframe with the players
         :return: A dataframe with the player counts of each club by position
-        '''
+        """
         try:
             return data.groupBy(Club, Single_position).count()\
                 .withColumnRenamed(count, numbers_of_players_by_club_and_position)
@@ -53,11 +53,11 @@ class process:
             print(ex)
 
     def topSprintSpeedAverage(self, data: DataFrame):
-        '''
+        """
         This function finds the top 10 clubs according to the average sprint speed
         :param data: A dataframe
         :return: A dataframe with only the top 10 clubs average sprint speed
-        '''
+        """
         try:
             return data.groupBy(Club).agg(F.avg(F.col(Sprint_Speed)))\
                 .orderBy(F.desc('avg(Sprint_Speed)')).withColumnRenamed('avg(Sprint_Speed)', top_sprint_speed_average)\
@@ -65,8 +65,8 @@ class process:
         except Exception as ex:
             print(ex)
 
-    def claculateIMC(self, data: DataFrame):
-        '''
+    def calculateIMC(self, data: DataFrame):
+        """
         The IMC was developed by the mathematician Lambert Adolphe Quetelet in the 19th century, based on the weight
         and height of each subject.
         Currently it is used in the assessment of patients to determine the ideal weight, since it is obtained only by
@@ -79,7 +79,7 @@ class process:
         :param data: A dataframe
         :return: A data frame with the name, weight in kilograms, height in meters and the BMI of each overweight
         player (IMC>25)
-        '''
+        """
         try:
             return data.withColumn(height_temp, F.regexp_replace(Height, '"', ''))\
                 .withColumn(height_temp1, F.regexp_replace(height_temp, '\'', '.'))\
@@ -93,11 +93,11 @@ class process:
             print(ex)
 
     def topPlayersOVA(self, data: DataFrame):
-        '''
+        """
         This feature finds the top 10 players for each position based on the OVA indicator
         :param data: A dataframe
         :return: A dataframe with the top 10 players for each position
-        '''
+        """
         try:
             df = data.select(F.col(Name), F.col(OVA), F.col(Single_position).alias(Position),
                              F.row_number().over(Window.partitionBy(Single_position)
@@ -106,11 +106,3 @@ class process:
             return df
         except Exception as ex:
             print(ex)
-
-
-
-
-
-
-
-

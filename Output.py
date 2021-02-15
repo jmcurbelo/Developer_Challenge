@@ -43,4 +43,3 @@ class output:
             data.coalesce(2).write.mode(overwrite).orc(path)
         except Exception as ex:
             print(ex)
-

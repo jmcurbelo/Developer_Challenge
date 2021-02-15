@@ -1,4 +1,4 @@
-from pyspark import SparkConf, SparkContext
+from pyspark import SparkContext
 from pyspark.sql import SQLContext
 from pyspark.sql import DataFrame
 from Input import input
@@ -12,12 +12,15 @@ from paths import *
 
 
 class main:
+    """
+    This class contains all process need to generate outputs
+    """
 
     def runProcess(self):
-        '''
+        """
         This function runs the whole process writing the requested outputs in the project's output folder.
         :return: write 5 dataframes
-        '''
+        """
         try:
             sc = SparkContext(master='local', appName='Developer_Challenge')
             spark = SQLContext(sc)
@@ -52,7 +55,7 @@ class main:
             write.writeDF(top_spr_spd_avg, output_path_top_spr_spd_avg)
 
             # All players with overweight (IMC>25)
-            ply_overweight = process_data.claculateIMC(data)
+            ply_overweight = process_data.calculateIMC(data)
             write.writeDF(ply_overweight, output_path_ply_overweight)
 
         except Exception as ex:
@@ -62,5 +65,3 @@ class main:
 if __name__ == '__main__':
     run = main()
     run.runProcess()
-
-
